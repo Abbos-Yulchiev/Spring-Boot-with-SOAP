@@ -43,7 +43,6 @@ public class TransactionEndpoint {
         return createJaxbElement(service.getInformation(informationArguments.getValue()), GetInformationResult.class);
     }
 
-    @CheckCredential
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "CheckTransactionArguments")
     public JAXBElement<CheckTransactionResult> checkTransaction(@RequestPayload JAXBElement<CheckTransactionArguments> checkTransactionArguments) {
@@ -51,21 +50,19 @@ public class TransactionEndpoint {
     }
 
 
-    @CheckCredential
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "CancelTransactionArguments")
     public JAXBElement<CancelTransactionResult> cancelTransaction(@RequestPayload JAXBElement<CancelTransactionArguments> cancelTransactionArguments) {
         return createJaxbElement(new CancelTransactionResult(), CancelTransactionResult.class);
     }
 
-    @CheckCredential
+
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetStatementArguments")
     public JAXBElement<GetStatementResult> getStatement(@RequestPayload JAXBElement<GetStatementArguments> getStatementArguments) {
         return createJaxbElement(new GetStatementResult(), GetStatementResult.class);
     }
 
-    @CheckCredential
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "ChangePasswordArguments")
     public JAXBElement<ChangePasswordResult> changePassword(@RequestPayload JAXBElement<ChangePasswordArguments> changePasswordArguments) {

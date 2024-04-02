@@ -42,8 +42,8 @@ public class WalletServiceImpl implements PaymentService {
 
         result.getParameters()
                 .addAll(List.of(
-                        getGenericParam("CurrentBalance", wallet.getBalance().toString()),
-                        getGenericParam("Username", wallet.getOwnerFullName())
+                        getGenericParam("balance", wallet.getBalance().toString()),
+                        getGenericParam("name", wallet.getOwnerFullName())
                 ));
         return result;
     }
@@ -51,11 +51,11 @@ public class WalletServiceImpl implements PaymentService {
 
     private Wallet getWallet(List<GenericParam> parameters) {
         Wallet wallet;
-        String account = Utilities.getValueByKey(parameters, "CurrentAccount");
+        String account = Utilities.getValueByKey(parameters, "account");
         if (Objects.nonNull(account)) {
             wallet = walletRepository.findByAccount(account).orElseThrow(() -> new NoSuchElementException("Wallet is not found"));
         } else {
-            String phone = Objects.requireNonNull(Utilities.getValueByKey(parameters, "phoneNumber"));
+            String phone = Objects.requireNonNull(Utilities.getValueByKey(parameters, "phone"));
             wallet = walletRepository.findByPhone(phone).orElseThrow(() -> new NoSuchElementException("Wallet is not found"));
         }
         return wallet;
@@ -70,8 +70,8 @@ public class WalletServiceImpl implements PaymentService {
 
         result.getParameters()
                 .addAll(List.of(
-                        getGenericParam("CurrentAccount", entity.getAccountNumber()),
-                        getGenericParam("CurrentBalance", entity.getBalance().toString())
+                        getGenericParam("account", entity.getAccountNumber()),
+                        getGenericParam("balance", entity.getBalance().toString())
                 ));
         return result;
     }
