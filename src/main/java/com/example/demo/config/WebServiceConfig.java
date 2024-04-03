@@ -20,7 +20,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public Jaxb2Marshaller marshaller() {
         final Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setContextPath("wsdl");
+        marshaller.setPackagesToScan("provider");
         return marshaller;
     }
 
@@ -35,7 +35,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean
     public XsdSchema xsdSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("ProviderWebService.wsdl"));
+        return new SimpleXsdSchema(new ClassPathResource("provider/ProviderWebService.xsd"));
     }
 
     @Bean(name = "wallet")

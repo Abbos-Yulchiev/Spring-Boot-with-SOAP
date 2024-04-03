@@ -53,10 +53,10 @@ public class WalletServiceImpl implements PaymentService {
         Wallet wallet;
         String account = Utilities.getValueByKey(parameters, "account");
         if (Objects.nonNull(account)) {
-            wallet = walletRepository.findByAccount(account).orElseThrow(() -> new NoSuchElementException("Wallet is not found"));
+            wallet = walletRepository.findByAccountNumber(account).orElseThrow(() -> new NoSuchElementException("Wallet is not found"));
         } else {
             String phone = Objects.requireNonNull(Utilities.getValueByKey(parameters, "phone"));
-            wallet = walletRepository.findByPhone(phone).orElseThrow(() -> new NoSuchElementException("Wallet is not found"));
+            wallet = walletRepository.findByPhoneNumber(phone).orElseThrow(() -> new NoSuchElementException("Wallet is not found"));
         }
         return wallet;
     }

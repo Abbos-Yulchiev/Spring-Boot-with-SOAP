@@ -21,11 +21,11 @@ public class CheckCredentialAspect {
         this.repository = repository;
     }
 
-    @Before("@annotation(com.example.demo.core.util.security.CheckCredentialAspect)")
-    public void checkCredential(JoinPoint joinPoint) {
+    @Before("@annotation(CheckCredentials)")
+    public void checkCredentials(JoinPoint joinPoint) {
 
         Object[] args = joinPoint.getArgs();
-        if (isActualObject(args) && args[0] instanceof JAXBElement) {
+        if (args.length == 1 && args[0] instanceof JAXBElement<?>) {
             JAXBElement<GenericArguments> arguments = (JAXBElement<GenericArguments>) args[0];
             GenericArguments req = arguments.getValue();
             Credentials user = repository.findByUsername(req.getUsername())
@@ -34,9 +34,5 @@ public class CheckCredentialAspect {
         } else {
             throw new UnauthorizedException("Unauthorized");
         }
-    }
-
-    private static boolean isActualObject(Object[] args) {
-        return args.length == 1 && args[0] instanceof JAXBElement<?>;
     }
 }

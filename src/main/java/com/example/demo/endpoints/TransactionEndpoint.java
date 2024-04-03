@@ -1,6 +1,6 @@
 package com.example.demo.endpoints;
 
-import com.example.demo.core.security.CheckCredential;
+import com.example.demo.core.security.CheckCredentials;
 import com.example.demo.provider.uws.*;
 import com.example.demo.sevice.PaymentService;
 import com.example.demo.sevice.impl.PaymentServiceFactory;
@@ -23,19 +23,15 @@ public class TransactionEndpoint {
         this.paymentService = paymentService;
     }
 
-    @CheckCredential
+    @CheckCredentials
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "PerformTransactionArguments")
     public JAXBElement<PerformTransactionResult> performTransaction(@RequestPayload JAXBElement<PerformTransactionArguments> transactionArguments) {
-        PaymentService service = paymentService
-                .getService(String.valueOf(transactionArguments
-                        .getValue()
-                        .getServiceId()));
-        return createJaxbElement(service.performTransaction(transactionArguments.getValue()),
-                PerformTransactionResult.class);
+        PaymentService service = paymentService.getService(String.valueOf(transactionArguments.getValue().getServiceId()));
+        return createJaxbElement(service.performTransaction(transactionArguments.getValue()), PerformTransactionResult.class);
     }
 
-    @CheckCredential
+    @CheckCredentials
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetInformationArguments")
     public JAXBElement<GetInformationResult> getInformation(@RequestPayload JAXBElement<GetInformationArguments> informationArguments) {
